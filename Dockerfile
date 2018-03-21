@@ -1,4 +1,4 @@
-FROM python:2.7.9
+FROM python:2.7.14-stretch
 MAINTAINER Ariel Núñez<ariel@terranodo.io>
 
 RUN mkdir -p /usr/src/{app,geonode}
@@ -31,7 +31,7 @@ RUN pip install --upgrade pip
 
 # python-gdal does not seem to work, let's install manually the version that is
 # compatible with the provided libgdal-dev
-RUN pip install GDAL==1.10 --global-option=build_ext --global-option="-I/usr/include/gdal"
+RUN pip install GDAL==2.1.2 --global-option=build_ext --global-option="-I/usr/include/gdal"
 
 # install shallow clone of geonode master branch
 RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch master /usr/src/geonode

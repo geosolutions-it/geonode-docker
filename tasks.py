@@ -62,16 +62,12 @@ http://{public_fqdn}/ >> {override_fn}".format(**envs), pty=True)
 @task
 def migrations(ctx):
     print "**************************migrations*******************************"
-    ctx.run("python manage.py migrate --noinput --settings={0}".format(
-        _localsettings()
-    ), pty=True)
+    ctx.run("python manage.py migrate --noinput ", pty=True)
 
 @task
 def statics(ctx):
     print "**************************migrations*******************************"
-    ctx.run("python manage.py collectstatic --noinput --settings={0}".format(
-        _localsettings()
-    ), pty=True)
+    ctx.run("python manage.py collectstatic --noinput ", pty=True)
 
 @task
 def prepare(ctx):
@@ -83,12 +79,9 @@ def prepare(ctx):
 @task
 def fixtures(ctx):
     print "**************************fixtures********************************"
-    ctx.run("django-admin.py loaddata sample_admin \
---settings={0}".format(_localsettings()), pty=True)
-    ctx.run("django-admin.py loaddata /tmp/default_oauth_apps_docker.json \
---settings={0}".format(_localsettings()), pty=True)
-    ctx.run("django-admin.py loaddata /usr/src/geonode/geonode/base/fixtures/initial_data.json \
---settings={0}".format(_localsettings()), pty=True)
+    ctx.run("python manage.py loaddata sample_admin', pty=True)
+    ctx.run("python manage.py loaddata /tmp/default_oauth_apps_docker.json', pty=True)
+    ctx.run("python manage.py loaddata /usr/src/geonode/geonode/base/fixtures/initial_data.json', pty=True)
 
 
 def _docker_host_ip():
@@ -146,11 +139,6 @@ def _update_geodb_connstring():
     return geoconnstr
 
 
-def _localsettings():
-    settings = os.getenv('DJANGO_SETTINGS_MODULE', 'demo_master.settings')
-    return settings
-
-
 def _geonode_public_host_ip():
     gn_pub_hostip = os.getenv('GEONODE_LB_HOST_IP', '')
     if not gn_pub_hostip:
@@ -176,7 +164,8 @@ def _prepare_oauth_fixture():
     default_fixture = [
         {
             "model": "oauth2_provider.application",
-            "pk": 1001,
+            "
+            pk": 1001,
             "fields": {
                 "skip_authorization": True,
                 "redirect_uris": "http://{0}:{1}/geoserver/index.html".format(

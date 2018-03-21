@@ -38,6 +38,7 @@ RUN pip install GDAL==2.1.3 --global-option=build_ext --global-option="-I/usr/in
 RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch master /usr/src/geonode
 RUN cd /usr/src/geonode/; pip install --no-cache-dir -r requirements.txt; pip install --no-deps -e .
 
+RUN ln -fs /usr/lib/python2.7/plat-x86_64-linux-gnu/_sysconfigdata.py /usr/lib/python2.7/
 
 RUN cp /usr/src/geonode/tasks.py /usr/src/app/
 RUN cp /usr/src/geonode/entrypoint.sh /usr/src/app/

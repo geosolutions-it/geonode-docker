@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
                 python-ldap \
                 libmemcached-dev libsasl2-dev zlib1g-dev \
                 python-pylibmc \
+                uwsgi uwsgi-plugin-python \
 	--no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 

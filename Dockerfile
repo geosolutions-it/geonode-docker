@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 		postgresql-client libpq-dev \
 		sqlite3 \
                 python-gdal python-psycopg2 \
-                python-imaging python-lxml \
+                python-pil python-lxml \
                 python-dev libgdal-dev \
                 python-ldap \
                 libmemcached-dev libsasl2-dev zlib1g-dev \
@@ -35,7 +35,7 @@ RUN pip install --upgrade pip
 RUN gdal-config --version | cut -c 1-5 | xargs -I % pip install 'pygdal>=%.0,<=%.999'
 
 # install shallow clone of geonode master branch
-RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch master /usr/src/geonode
+RUN git clone --depth=1 git://github.com/GeoNode/geonode.git --branch 2.10.x /usr/src/geonode
 RUN cd /usr/src/geonode/; pip install --upgrade --no-cache-dir -r requirements.txt; pip install --upgrade -e .
 
 
